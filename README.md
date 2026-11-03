@@ -1,4 +1,8 @@
+![StickerApp](docs/banner.png)
+
 # StickerApp
+
+[![Pruebas](https://github.com/eduardolar/StickerApp/actions/workflows/ci.yml/badge.svg)](https://github.com/eduardolar/StickerApp/actions/workflows/ci.yml) ![Angular 22](https://img.shields.io/badge/Angular-22-DD0031?logo=angular&logoColor=white) ![Capacitor 8](https://img.shields.io/badge/Capacitor-8-119EFF?logo=capacitor&logoColor=white) ![Vitest](https://img.shields.io/badge/Vitest-68%20pruebas-6E9F18?logo=vitest&logoColor=white)
 
 App para buscar stickers animados, guardar favoritos y compartirlos. Hecha con **Angular 22** y empaquetada para Android con **Capacitor 8**. Es un proyecto personal.
 
