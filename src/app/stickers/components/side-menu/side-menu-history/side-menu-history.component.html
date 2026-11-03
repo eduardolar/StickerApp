@@ -1,0 +1,47 @@
+@if (stickersService.searchHistoryKeys().length > 0) {
+  <nav aria-label="Historial de búsquedas" class="mt-8 w-full px-4">
+    <div class="mb-3 flex items-center justify-between px-3">
+      <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">Historial</p>
+      <button
+        type="button"
+        (click)="clearAll()"
+        class="rounded text-[11px] font-medium text-slate-500 transition hover:text-red-400 focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:outline-none"
+      >
+        Borrar todo
+      </button>
+    </div>
+
+    <div class="space-y-1">
+      <!-- track $index: al escribir se sustituye la última búsqueda y con `track key` se rehacía
+           toda la lista (aviso NG0956). Son enlaces sin estado, reutilizarlos no da problemas -->
+      @for (key of stickersService.searchHistoryKeys(); track $index) {
+        <!-- El botón de borrar va fuera del enlace: no se puede meter un botón dentro de un <a> -->
+        <div class="group relative">
+          <a
+            [routerLink]="['/dashboard/history', key]"
+            routerLinkActive="bg-indigo-500/10 text-white ring-1 ring-inset ring-indigo-400/20"
+            ariaCurrentWhenActive="page"
+            class="flex w-full items-center gap-3 rounded-xl py-2 pr-10 pl-3 text-sm text-slate-400 transition duration-200 hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7" class="h-4 w-4 shrink-0" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            <span class="truncate">{{ key }}</span>
+          </a>
+
+          <button
+            type="button"
+            title="Borrar del historial"
+            [attr.aria-label]="'Borrar ' + key + ' del historial'"
+            (click)="remove(key)"
+            class="absolute top-1/2 right-2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-lg text-slate-500 opacity-0 transition group-focus-within:opacity-100 group-hover:opacity-100 hover:bg-white/10 hover:text-red-400 focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:outline-none pointer-coarse:opacity-100"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="h-4 w-4" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      }
+    </div>
+  </nav>
+}

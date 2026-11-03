@@ -1,0 +1,70 @@
+@if (stickersService.searchHistoryKeys().length > 0) {
+  <nav aria-labelledby="recent-searches-title">
+    <div class="mb-2 flex items-center justify-between gap-3">
+      <h2
+        id="recent-searches-title"
+        class="text-xs font-semibold tracking-[0.18em] text-slate-500 uppercase dark:text-slate-400"
+      >
+        Recientes
+      </h2>
+      <button
+        type="button"
+        (click)="clearAll()"
+        class="-mr-2 rounded-lg px-2 py-2 text-xs font-medium text-slate-500 transition hover:text-red-600 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none dark:text-slate-400 dark:hover:text-red-400"
+      >
+        Borrar todo
+      </button>
+    </div>
+
+    <ul class="flex flex-wrap gap-2">
+      <!-- track $index por lo mismo que en el historial del menú lateral (aviso NG0956) -->
+      @for (key of stickersService.searchHistoryKeys(); track $index) {
+        <!-- El enlace y el botón de borrar van uno al lado del otro: un botón no puede ir dentro de un <a> -->
+        <li
+          class="flex max-w-full items-center rounded-full bg-white ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-700"
+        >
+          <a
+            [routerLink]="['/dashboard/history', key]"
+            class="flex h-10 min-w-0 items-center gap-1.5 rounded-full pr-1 pl-3 text-sm font-medium text-slate-600 transition hover:text-indigo-700 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none dark:text-slate-300 dark:hover:text-indigo-300"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="1.7"
+              class="h-4 w-4 shrink-0 text-slate-400 dark:text-slate-500"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+            <span class="truncate">{{ key }}</span>
+          </a>
+          <button
+            type="button"
+            title="Borrar del historial"
+            [attr.aria-label]="'Borrar ' + key + ' del historial'"
+            (click)="stickersService.removeFromHistory(key)"
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-slate-400 transition hover:bg-red-50 hover:text-red-600 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none dark:text-slate-500 dark:hover:bg-red-500/10 dark:hover:text-red-400"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+              class="h-4 w-4"
+              aria-hidden="true"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </li>
+      }
+    </ul>
+  </nav>
+}

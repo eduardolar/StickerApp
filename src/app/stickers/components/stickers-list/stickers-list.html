@@ -1,0 +1,18 @@
+<!-- Masonry: cada sticker va a la columna más corta; al cargar más, los que ya estaban no se mueven -->
+<div class="flex items-start gap-3 sm:gap-4">
+  @for (column of columns(); track $index) {
+    <ul role="list" class="flex min-w-0 flex-1 flex-col gap-3 sm:gap-4">
+      @for (sticker of column; track sticker.id) {
+        <li>
+          <!-- Las dos primeras filas se ven nada más entrar: sin lazy cargan antes (mejor LCP) -->
+          <app-sticker-list-item
+            class="block"
+            [sticker]="sticker"
+            [eager]="$index < 2"
+            (opened)="dialogService.open(sticker, stickers())"
+          />
+        </li>
+      }
+    </ul>
+  }
+</div>

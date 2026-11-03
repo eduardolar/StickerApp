@@ -1,0 +1,23 @@
+@if (isLoading()) {
+  <p role="status" class="py-4 text-center text-sm text-slate-500 dark:text-slate-400">
+    Cargando más stickers...
+  </p>
+} @else if (errorMessage()) {
+  <div class="flex flex-col items-center gap-2 py-4">
+    <p role="alert" class="text-sm text-red-700 dark:text-red-300">{{ errorMessage() }}</p>
+    <button
+      type="button"
+      class="text-sm font-semibold text-indigo-600 underline dark:text-indigo-400"
+      (click)="loadMore.emit()"
+    >
+      Reintentar
+    </button>
+  </div>
+} @else if (hasMore()) {
+  <!-- Centinela: al verse en pantalla carga la siguiente página.
+       Se quita mientras carga y se vuelve a crear después; si sigue visible
+       (pantallas muy altas) el observer nuevo dispara otra carga automáticamente -->
+  <div appInfiniteScroll (scrolledToEnd)="loadMore.emit()" aria-hidden="true"></div>
+} @else {
+  <p class="py-4 text-center text-sm text-slate-500 dark:text-slate-400">{{ endMessage() }}</p>
+}

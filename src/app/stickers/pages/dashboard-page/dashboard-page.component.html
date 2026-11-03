@@ -1,0 +1,41 @@
+<!-- overflow-x-clip y no hidden: hidden haría que la barra de arriba del móvil (sticky) no se quedase fija -->
+<div class="min-h-screen w-full overflow-x-clip bg-slate-100 antialiased text-slate-300 dark:bg-slate-950 selection:bg-indigo-600 selection:text-white">
+  <div class="relative min-h-screen w-full">
+    <!-- Marca invisible al principio de la página: si deja de verse, aparece el botón "volver arriba" -->
+    <div #pageTop class="pointer-events-none absolute top-0 left-0 h-[400px] w-px" aria-hidden="true"></div>
+
+    <app-stickers-side-menu></app-stickers-side-menu>
+    <app-mobile-top-bar />
+
+    <!-- En pantallas anchas no hay barra de arriba: sin esta franja, los iconos claros de la barra de estado
+         no se verían sobre el fondo claro. Mide 0 si el sistema no tapa nada arriba (p. ej. en el navegador) -->
+    <div class="pointer-events-none fixed inset-x-0 top-0 z-40 hidden h-[var(--safe-top)] bg-slate-950 md:block" aria-hidden="true"></div>
+
+    <!-- Abajo deja sitio a la barra de pestañas del móvil (y al banner de anuncios, que va encima de ella);
+         los lados y arriba, a las zonas del notch -->
+    <main
+      class="pt-5 pr-[calc(1.25rem+var(--safe-right))] pb-[calc(5rem+var(--safe-bottom)+var(--ad-banner-height,0px))] pl-[calc(1.25rem+var(--safe-left))] text-slate-900 sm:pt-6 sm:pr-[calc(1.5rem+var(--safe-right))] sm:pl-[calc(1.5rem+var(--safe-left))] md:ml-64 md:pt-[calc(1.5rem+var(--safe-top))] md:pb-6 dark:text-slate-100"
+    >
+      <!-- El margen va en el aviso (p) y no en el componente: sin aviso no queda ningún hueco -->
+      <app-offline-banner class="block [&_p]:mb-5" />
+      <router-outlet />
+    </main>
+  </div>
+</div>
+
+<app-bottom-nav />
+
+<app-scroll-to-top-button [target]="pageTop" />
+
+@if (dialogService.selected(); as sticker) {
+  <!-- Al pasar de sticker el @if sigue siendo cierto: solo cambia el input y el <dialog> sigue abierto -->
+  <app-sticker-dialog
+    [sticker]="sticker"
+    [hasPrevious]="dialogService.hasPrevious()"
+    [hasNext]="dialogService.hasNext()"
+    [position]="dialogService.position()"
+    (previous)="dialogService.previous()"
+    (next)="dialogService.next()"
+    (closed)="dialogService.close()"
+  />
+}

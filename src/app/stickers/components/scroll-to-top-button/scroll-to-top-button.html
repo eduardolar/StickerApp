@@ -1,0 +1,13 @@
+@if (isVisible()) {
+  <button
+    type="button"
+    title="Volver arriba"
+    aria-label="Volver arriba"
+    (click)="scrollToTop()"
+    class="fixed right-[calc(1.25rem+var(--safe-right))] bottom-[calc(5.5rem+var(--safe-bottom)+var(--ad-banner-height,0px))] z-20 flex h-12 md:bottom-5 w-12 items-center justify-center rounded-full bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 transition hover:-translate-y-0.5 hover:bg-indigo-500 focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:outline-none"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="h-5 w-5" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75 12 8.25l7.5 7.5" />
+    </svg>
+  </button>
+}

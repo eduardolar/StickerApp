@@ -1,0 +1,13 @@
+<!-- En el móvil no se ve: allí van la barra de arriba y la barra de abajo -->
+<aside id="menu" class="relative z-10 hidden w-full overflow-visible pt-safe md:flex md:flex-col border-b border-white/5 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-300 shadow-2xl shadow-slate-950/20 md:fixed md:inset-y-0 md:left-0 md:h-screen md:min-h-screen md:w-64 md:overflow-y-auto md:border-b-0 md:border-r">
+  <app-side-menu-header />
+  <div class="py-6">
+    <app-side-menu-options />
+    <app-side-menu-history />
+  </div>
+
+  <!-- mt-auto: queda abajo del todo aunque haya poco historial -->
+  <div class="mt-auto border-t border-white/5 px-4 pt-3 pb-[calc(0.75rem+var(--safe-bottom))]">
+    <app-more-menu variant="full" />
+  </div>
+</aside>

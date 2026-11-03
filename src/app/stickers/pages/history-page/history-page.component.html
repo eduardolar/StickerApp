@@ -1,0 +1,25 @@
+<section class="space-y-6">
+  <header class="flex flex-wrap items-end justify-between gap-3">
+    <div class="space-y-1">
+      <p class="text-xs font-semibold tracking-[0.18em] text-slate-500 uppercase dark:text-slate-400">Historial</p>
+      <h1 class="text-2xl font-semibold">«{{ query() }}»</h1>
+    </div>
+    <a
+      routerLink="/dashboard/search"
+      [queryParams]="{ q: query() }"
+      class="rounded-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-500"
+    >
+      Buscar de nuevo
+    </a>
+  </header>
+
+  @if (stickers().length > 0) {
+    <p class="text-sm text-slate-500 dark:text-slate-400">{{ stickers().length | i18nPlural: savedStickersPlural }}</p>
+    <app-stickers-list [stickers]="stickers()" />
+  } @else {
+    <div class="rounded-2xl bg-white px-6 py-16 text-center ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-800">
+      <p class="font-semibold text-slate-700 dark:text-slate-200">No hay stickers guardados para «{{ query() }}»</p>
+      <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Pulsa «Buscar de nuevo» para volver a buscarlo.</p>
+    </div>
+  }
+</section>

@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">StickerApp</string>
+    <string name="title_activity_main">StickerApp</string>
+    <string name="package_name">com.eduardolara.stickerapp</string>
+    <string name="custom_url_scheme">com.eduardolara.stickerapp</string>
+    <!-- ID de la APP de AdMob (lleva "~"; no es un ID de bloque de anuncios). Ahora es el ID de PRUEBA de Google.
+         Cámbialo por el tuyo (AdMob > Apps > Configuración de la app) a la vez que los bloques de
+         src/app/shared/config/ads.config.ts -->
+    <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
+</resources>

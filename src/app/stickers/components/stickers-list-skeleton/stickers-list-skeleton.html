@@ -1,0 +1,10 @@
+<div role="status" class="columns-2 gap-3 sm:columns-3 sm:gap-4 lg:columns-4 2xl:columns-5">
+  <span class="sr-only">Cargando stickers...</span>
+  @for (height of heights; track $index) {
+    <div
+      class="mb-3 break-inside-avoid animate-pulse rounded-2xl bg-slate-200 sm:mb-4 dark:bg-slate-800"
+      [style.height.px]="height"
+      aria-hidden="true"
+    ></div>
+  }
+</div>

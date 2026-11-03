@@ -1,0 +1,25 @@
+<header
+  class="sticky top-0 z-20 border-b border-white/5 bg-slate-950/95 pt-safe px-safe text-slate-300 shadow-lg shadow-slate-950/20 backdrop-blur-lg md:hidden"
+>
+  <div class="flex h-14 items-center gap-3 px-4">
+    <a
+      routerLink="/dashboard/trending"
+      class="-ml-1 flex items-center gap-2.5 rounded-xl p-1 focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:outline-none"
+    >
+      <span
+        class="flex h-9 w-9 items-center justify-center rounded-xl bg-linear-to-br from-indigo-400 to-violet-600 text-base font-black text-white shadow-lg shadow-indigo-950/40"
+        aria-hidden="true"
+      >
+        S
+      </span>
+      <span class="text-lg font-bold tracking-tight text-white"
+        >Sticker<span class="text-indigo-400">App</span></span
+      >
+    </a>
+
+    <div class="ml-auto flex items-center gap-2">
+      <app-theme-toggle />
+      <app-more-menu />
+    </div>
+  </div>
+</header>

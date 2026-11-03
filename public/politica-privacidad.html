@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Política de privacidad de StickerApp</title>
+  <meta name="description" content="Política de privacidad de la app StickerApp: qué datos se guardan en tu móvil, qué se envía a KLIPY y cómo borrarlo.">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    // Este archivo se abre dentro de la app (public/) y también se publica en la web para Google Play.
+    // Dentro de la app se usa el tema elegido en ella (misma clave que ThemeService); si no, el del sistema
+    (function () {
+      var theme = null;
+      try {
+        theme = JSON.parse(localStorage.getItem('stickers-theme'));
+      } catch (error) {}
+      if (theme !== 'dark' && theme !== 'light') {
+        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --link: #4338ca;
+      --border: #e2e8f0;
+      --box: #f1f5f9;
+      --focus: #6366f1;
+    }
+
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #020617;
+      --text: #f1f5f9;
+      --muted: #cbd5e1;
+      --link: #a5b4fc;
+      --border: #334155;
+      --box: #0f172a;
+      --focus: #818cf8;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 1.0625rem;
+      line-height: 1.65;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -4rem;
+      padding: 0.5rem 1rem;
+      background: var(--text);
+      color: var(--bg);
+      border-radius: 0.5rem;
+      z-index: 10;
+    }
+
+    .skip-link:focus {
+      top: 1rem;
+    }
+
+    header,
+    main,
+    footer {
+      max-width: 46rem;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    header {
+      padding-top: 2.5rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.75rem;
+      margin: -1rem 0 0.75rem;
+      font-weight: 600;
+    }
+
+    .back-link[hidden] {
+      display: none;
+    }
+
+    h1 {
+      font-size: 1.875rem;
+      line-height: 1.25;
+      margin: 0 0 0.5rem;
+    }
+
+    h2 {
+      font-size: 1.375rem;
+      line-height: 1.3;
+      margin: 2.5rem 0 0.75rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    h3 {
+      font-size: 1.125rem;
+      margin: 1.5rem 0 0.5rem;
+    }
+
+    p,
+    ul,
+    ol {
+      margin: 0 0 1rem;
+    }
+
+    li + li {
+      margin-top: 0.4rem;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: underline;
+      text-underline-offset: 0.15em;
+      overflow-wrap: anywhere;
+    }
+
+    a:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    .meta {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .summary {
+      background: var(--box);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+    }
+
+    .summary h2 {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+      font-size: 1.25rem;
+    }
+
+    .summary ul {
+      margin-bottom: 0;
+    }
+
+    nav ol {
+      padding-left: 1.25rem;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin: 0 0 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.975rem;
+    }
+
+    caption {
+      text-align: left;
+      font-weight: 600;
+      padding-bottom: 0.5rem;
+    }
+
+    th,
+    td {
+      text-align: left;
+      vertical-align: top;
+      padding: 0.6rem 0.75rem;
+      border: 1px solid var(--border);
+    }
+
+    th {
+      background: var(--box);
+    }
+
+    footer {
+      padding-top: 2rem;
+      padding-bottom: 3rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header>
+    <!-- Solo se ve si se ha llegado desde la app: en la copia publicada en la web no hay app a la que volver -->
+    <a class="back-link" id="volver-a-la-app" href="/dashboard/trending" hidden>&larr; Volver a la app</a>
+    <h1>Política de privacidad de StickerApp</h1>
+    <p class="meta">Fecha de entrada en vigor: <time datetime="2026-10-08">8 de octubre de 2026</time></p>
+    <p class="meta">App para Android: StickerApp (<span lang="en">com.eduardolara.stickerapp</span>)</p>
+    <p class="meta">También puedes leerla dentro de la app, sin conexión: menú «Más opciones» (⋮) &gt; «Política de privacidad».</p>
+  </header>
+
+  <main id="contenido">
+    <section class="summary" aria-labelledby="resumen">
+      <h2 id="resumen">Resumen</h2>
+      <ul>
+        <li>No hay registro ni cuentas de usuario.</li>
+        <li>No tenemos servidores propios: <strong>no recibimos ni guardamos ningún dato tuyo</strong>.</li>
+        <li>Tu historial de búsquedas, tus favoritos y el tema elegido se guardan <strong>solo en tu móvil</strong>.</li>
+        <li>Para mostrarte stickers, la app envía tus búsquedas a KLIPY, que es quien proporciona el contenido.</li>
+        <li>
+          <strong>La app muestra anuncios de Google AdMob.</strong> El sistema de anuncios de Google recoge datos del
+          dispositivo, como el identificador de publicidad, la dirección IP (de la que se deduce la ubicación aproximada) y
+          cómo interactúas con los anuncios.
+        </li>
+        <li>
+          En el Espacio Económico Europeo, el Reino Unido y Suiza, tú eliges si aceptas anuncios personalizados. Puedes
+          cambiarlo cuando quieras con la opción «Privacidad de anuncios» del menú «Más opciones» (⋮) de la app.
+        </li>
+        <li>No hay compras dentro de la app ni herramientas de analítica propias.</li>
+      </ul>
+    </section>
+
+    <nav aria-labelledby="indice">
+      <h2 id="indice">Índice</h2>
+      <ol>
+        <li><a href="#responsable">Quién es responsable de la app</a></li>
+        <li><a href="#en-tu-movil">Datos que se guardan en tu móvil</a></li>
+        <li><a href="#klipy">Datos que se envían a KLIPY</a></li>
+        <li><a href="#anuncios">Anuncios (Google AdMob)</a></li>
+        <li><a href="#otras-apps">Cuando compartes, guardas o copias un sticker</a></li>
+        <li><a href="#no-hacemos">Lo que la app no hace</a></li>
+        <li><a href="#permisos">Permisos de Android</a></li>
+        <li><a href="#copias">Copias de seguridad de Android</a></li>
+        <li><a href="#seguridad">Seguridad</a></li>
+        <li><a href="#borrar">Cuánto tiempo se guardan los datos y cómo borrarlos</a></li>
+        <li><a href="#derechos">Tus derechos</a></li>
+        <li><a href="#menores">Menores de edad</a></li>
+        <li><a href="#terceros">Servicios de terceros y marcas</a></li>
+        <li><a href="#cambios">Cambios en esta política</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ol>
+    </nav>
+
+    <section aria-labelledby="responsable">
+      <h2 id="responsable">1. Quién es responsable de la app</h2>
+      <p>
+        StickerApp es una app gratuita desarrollada por Eduardo Lara, desarrollador independiente.
+        Puedes escribirnos a la dirección que aparece en el apartado <a href="#contacto">Contacto</a>.
+      </p>
+      <p>
+        La app no envía datos a ningún servidor nuestro. Los datos que salen de tu móvil van directamente a:
+      </p>
+      <ul>
+        <li><strong>KLIPY</strong>, para mostrarte los stickers (ver <a href="#klipy">apartado 3</a>).</li>
+        <li><strong>Google</strong>, a través de su servicio de anuncios AdMob, para mostrar y medir los anuncios (ver <a href="#anuncios">apartado 4</a>).</li>
+      </ul>
+      <p>
+        Cada uno trata esos datos como responsable independiente, según su propia política de privacidad. Nosotros solo
+        vemos en AdMob estadísticas de conjunto (cuántos anuncios se han mostrado, ingresos), que no te identifican.
+      </p>
+    </section>
+
+    <section aria-labelledby="en-tu-movil">
+      <h2 id="en-tu-movil">2. Datos que se guardan en tu móvil</h2>
+      <p>
+        La app guarda esta información en el almacenamiento interno de la propia app, dentro de tu móvil. Nosotros no
+        tenemos acceso a ella y no se envía a ningún servidor nuestro.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <caption>Información guardada en tu dispositivo</caption>
+          <thead>
+            <tr>
+              <th scope="col">Qué</th>
+              <th scope="col">Para qué</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Historial de búsquedas: tus 10 últimas búsquedas, junto con los enlaces a los stickers de la primera página de resultados</td>
+              <td>Repetir una búsqueda con un toque y mostrarla al momento</td>
+            </tr>
+            <tr>
+              <td>Favoritos: los stickers que marcas con el corazón (identificador, título y enlaces de sus imágenes)</td>
+              <td>Mostrarte tu lista de favoritos</td>
+            </tr>
+            <tr>
+              <td>Tema: modo claro u oscuro, solo si lo eliges con el botón</td>
+              <td>Recordar tu preferencia la próxima vez que abras la app</td>
+            </tr>
+            <tr>
+              <td>Una copia temporal del último sticker que compartes o guardas, en la memoria caché de la app (se sustituye por la del siguiente)</td>
+              <td>El menú de compartir de Android necesita un archivo para poder enviarlo, y desde ahí se copia a Documentos al guardarlo</td>
+            </tr>
+            <tr>
+              <td>Tu elección sobre los anuncios personalizados (consentimiento), que guarda el sistema de anuncios de Google</td>
+              <td>No volver a preguntarte cada vez que abres la app</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Los stickers que guardas con el botón de descarga se copian en la carpeta <strong>Documentos/StickerApp</strong> de tu
+        móvil. Son archivos tuyos: la app no los envía a ninguna parte.
+      </p>
+    </section>
+
+    <section aria-labelledby="klipy">
+      <h2 id="klipy">3. Datos que se envían a KLIPY</h2>
+      <p>
+        Los stickers los proporciona <a href="https://klipy.com" rel="noopener noreferrer">KLIPY</a>. Para mostrártelos, la
+        app se conecta directamente a los servidores de KLIPY (su API y su servicio de imágenes) y les envía:
+      </p>
+      <ul>
+        <li><strong>El texto que buscas.</strong> Con la búsqueda en vivo, la búsqueda se envía mientras escribes.</li>
+        <li>Datos técnicos de la petición: la página de resultados, los formatos de imagen, el filtro de contenido más estricto de KLIPY y la clave de acceso de la app a KLIPY.</li>
+        <li>
+          Un <strong>código de país</strong> sacado del idioma de tu móvil (por ejemplo, «mx» si usas español de México), para
+          que KLIPY dé prioridad a los stickers de tu zona. Sale del idioma que eliges en Android, no de tu ubicación.
+        </li>
+        <li>
+          Lo que se envía en cualquier conexión a internet: tu <strong>dirección IP</strong> y datos técnicos del navegador
+          interno de la app (como el modelo de navegador, la versión de Android o el idioma). KLIPY recibe estos datos al
+          pedir los stickers en tendencia, los resultados de búsqueda y cada imagen.
+        </li>
+      </ul>
+      <p>
+        La app no envía a KLIPY tu nombre, tu correo, tus contactos, tu ubicación, tu identificador de publicidad ni ningún
+        identificador de usuario.
+      </p>
+      <p>
+        KLIPY trata estos datos según su
+        <a href="https://klipy.com/support/privacy-policy" hreflang="en" rel="noopener noreferrer">política de privacidad (en inglés)</a>.
+      </p>
+    </section>
+
+    <section aria-labelledby="anuncios">
+      <h2 id="anuncios">4. Anuncios (Google AdMob)</h2>
+      <p>
+        StickerApp es gratuita y se financia con anuncios. Los muestra <strong>Google AdMob</strong>, el servicio de
+        publicidad de Google, mediante su kit de desarrollo (SDK de Google Mobile Ads) incluido en la app.
+      </p>
+
+      <h3>Qué anuncios verás</h3>
+      <ul>
+        <li>Un <strong>banner</strong> en la parte de abajo de la pantalla, encima de la barra de navegación y separado de ella.</li>
+        <li>
+          Un <strong>anuncio a pantalla completa</strong> (intersticial), como máximo uno cada 3 minutos, y solo después
+          de enviar o guardar un sticker, cuando cierras el sticker o cambias de pantalla. Nunca al abrir la app ni justo
+          al volver a ella desde otra app.
+        </li>
+        <li>
+          Los anuncios se limitan a contenido apto para todos los públicos con supervisión de los padres (clasificación
+          «PG»). No se piden anuncios solo para adultos.
+        </li>
+        <li>
+          Si tocas un anuncio, se abre el navegador o Google Play, fuera de la app. A partir de ahí se aplican las condiciones
+          del anunciante.
+        </li>
+      </ul>
+
+      <h3>Qué datos recoge el sistema de anuncios de Google</h3>
+      <p>Según la información que publica Google sobre su SDK, para mostrar los anuncios se recogen:</p>
+      <ul>
+        <li>
+          <strong>Identificadores del dispositivo:</strong> el identificador de publicidad de Android y otros identificadores
+          de la app o del dispositivo.
+        </li>
+        <li><strong>Tu dirección IP</strong>, de la que se puede deducir tu <strong>ubicación aproximada</strong> (ciudad o región, no la exacta).</li>
+        <li><strong>Interacción con los anuncios:</strong> qué anuncios se muestran y si los tocas.</li>
+        <li>
+          <strong>Datos de diagnóstico y del dispositivo:</strong> informes de fallos y rendimiento del SDK, modelo del móvil,
+          versión de Android, idioma y tipo de conexión.
+        </li>
+      </ul>
+      <p>
+        Google usa estos datos para mostrar anuncios, medir su rendimiento, hacer estadísticas y evitar el fraude. Si das tu
+        consentimiento, también para elegir anuncios según tus intereses. La app no envía a Google tus búsquedas ni tus favoritos.
+      </p>
+
+      <h3>Anuncios personalizados y no personalizados</h3>
+      <ul>
+        <li>
+          <strong>En el Espacio Económico Europeo, el Reino Unido y Suiza:</strong> la primera vez que abres la app, un
+          formulario de consentimiento de Google te pregunta si aceptas que Google y sus socios publicitarios (la lista
+          aparece en el propio formulario) usen tus datos para anuncios personalizados.
+          <ul>
+            <li>Si aceptas, verás <strong>anuncios personalizados</strong>, elegidos según tus intereses.</li>
+            <li>
+              Si no aceptas, verás <strong>anuncios no personalizados</strong>, elegidos según el contexto y la ubicación
+              aproximada. Aun así, Google puede usar algunos datos para medir los anuncios, limitar cuántas veces ves el mismo
+              y evitar el fraude.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>En otros países:</strong> los anuncios pueden ser personalizados según las leyes locales y los ajustes de
+          anuncios de tu móvil y de tu cuenta de Google.
+        </li>
+      </ul>
+
+      <h3>Cómo cambiar tu elección</h3>
+      <ul>
+        <li>
+          <strong>En la app:</strong> abre el menú <strong>«Más opciones»</strong> (el botón ⋮ de arriba a la derecha; en
+          pantallas grandes, abajo del menú lateral) y pulsa <strong>«Privacidad de anuncios»</strong>. Se vuelve a abrir el
+          formulario y puedes cambiar o retirar tu consentimiento cuando quieras. La opción solo aparece donde la ley lo
+          exige, por ejemplo en la Unión Europea.
+        </li>
+        <li>
+          <strong>Borrar o restablecer el identificador de publicidad de Android:</strong> en los ajustes del móvil, ve a
+          <em>Ajustes &gt; Privacidad &gt; Anuncios</em> (en algunos móviles, <em>Ajustes &gt; Google &gt; Anuncios</em>) y
+          pulsa «Borrar ID de publicidad» o «Restablecer ID de publicidad». En versiones antiguas de Android, la opción se llama
+          «Inhabilitar personalización de anuncios». El nombre exacto puede variar según el móvil.
+        </li>
+        <li>
+          <strong>Tus ajustes de anuncios de Google:</strong> en <a href="https://myadcenter.google.com" rel="noopener noreferrer">Mi Centro de Anuncios</a>, si usas una cuenta de Google.
+        </li>
+      </ul>
+
+      <p>
+        Más información:
+        <a href="https://policies.google.com/technologies/ads" rel="noopener noreferrer">cómo usa Google los datos en la publicidad</a>
+        y <a href="https://policies.google.com/privacy" rel="noopener noreferrer">política de privacidad de Google</a>.
+      </p>
+    </section>
+
+    <section aria-labelledby="otras-apps">
+      <h2 id="otras-apps">5. Cuando compartes, guardas o copias un sticker</h2>
+      <ul>
+        <li>
+          <strong>Enviar a WhatsApp u otra app:</strong> la app abre el menú de compartir de Android con el archivo del sticker.
+          Tú eliges la app de destino, y a partir de ese momento se aplica la política de privacidad de esa app.
+          StickerApp no recibe ninguna información de lo que envías ni de a quién.
+        </li>
+        <li><strong>Guardar:</strong> el archivo se guarda en tu móvil, en Documentos/StickerApp.</li>
+        <li><strong>Copiar enlace:</strong> el enlace de la imagen del sticker (en los servidores de KLIPY) se copia al portapapeles de tu móvil. La app no lo envía a ninguna parte.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="no-hacemos">
+      <h2 id="no-hacemos">6. Lo que la app no hace</h2>
+      <ul>
+        <li>No pide registro ni crea cuentas.</li>
+        <li>
+          No usamos herramientas de analítica propias: no medimos qué haces dentro de la app. (El sistema de anuncios de
+          Google sí recoge los datos que se explican en el <a href="#anuncios">apartado 4</a>).
+        </li>
+        <li>No vendemos ni alquilamos tus datos.</li>
+        <li>No tiene compras dentro de la app.</li>
+        <li>No pide acceso a tu ubicación (GPS), contactos, cámara, micrófono, fotos ni otros archivos.</li>
+        <li>No descarga fuentes de letra ni otros recursos de servicios de terceros: la fuente va incluida en la app.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="permisos">
+      <h2 id="permisos">7. Permisos de Android</h2>
+      <p>
+        La app usa el permiso de <strong>acceso a internet</strong>, necesario para cargar los stickers desde KLIPY y los
+        anuncios. El sistema de anuncios de Google añade permisos que Android concede sin preguntarte, como el de
+        <strong>leer el identificador de publicidad</strong> (<span lang="en">AD_ID</span>) y el de consultar si hay conexión
+        a internet. La app no pide ningún permiso que te muestre un aviso.
+      </p>
+      <p>
+        No pide permiso de almacenamiento. En Android 11 o posterior puede guardar los stickers en Documentos sin él. En
+        Android 10 o anterior, el botón de guardar abre el menú de compartir para que elijas dónde guardarlo (por ejemplo, en
+        tu gestor de archivos).
+      </p>
+    </section>
+
+    <section aria-labelledby="copias">
+      <h2 id="copias">8. Copias de seguridad de Android</h2>
+      <p>
+        Si tienes activada la copia de seguridad de Google en tu móvil, Android puede incluir los datos de la app (historial,
+        favoritos y tema) en la copia de tu cuenta de Google, para recuperarlos si cambias de móvil. Esa copia la gestiona
+        Google según tu configuración. Nosotros no tenemos acceso a ella. Puedes desactivarla en los ajustes de Android, en
+        el apartado de copia de seguridad.
+      </p>
+    </section>
+
+    <section aria-labelledby="seguridad">
+      <h2 id="seguridad">9. Seguridad</h2>
+      <p>
+        Las conexiones con KLIPY y con el servicio de anuncios de Google van cifradas (HTTPS). Los datos guardados en tu móvil están en el almacenamiento
+        privado de la app, al que otras apps no pueden acceder.
+      </p>
+    </section>
+
+    <section aria-labelledby="borrar">
+      <h2 id="borrar">10. Cuánto tiempo se guardan los datos y cómo borrarlos</h2>
+      <p>Los datos de tu móvil se guardan hasta que tú los borres. Puedes hacerlo así:</p>
+      <ul>
+        <li><strong>Una búsqueda del historial:</strong> pulsa el botón «Borrar del historial» que hay junto a esa búsqueda.</li>
+        <li><strong>Todo el historial:</strong> pulsa «Borrar todo» en la lista de búsquedas recientes.</li>
+        <li><strong>Un favorito:</strong> vuelve a pulsar el corazón del sticker para quitarlo de Favoritos.</li>
+        <li>
+          <strong>Todos los datos de la app a la vez:</strong> en Android, ve a <em>Ajustes &gt; Aplicaciones &gt; StickerApp
+          &gt; Almacenamiento</em> y pulsa «Borrar datos» (el nombre exacto puede variar según el móvil).
+        </li>
+        <li><strong>Desinstalar la app:</strong> borra todos sus datos internos del móvil.</li>
+        <li>
+          <strong>Stickers guardados:</strong> los archivos de Documentos/StickerApp no se borran al desinstalar la app,
+          porque son tuyos. Puedes borrarlos con tu gestor de archivos.
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <strong>Datos de anuncios:</strong> retira tu consentimiento con «Privacidad de anuncios» (menú «Más opciones») y borra o restablece el
+          identificador de publicidad de Android (ver <a href="#anuncios">apartado 4</a>). Así los datos nuevos ya no se
+          asocian al identificador anterior.
+        </li>
+      </ul>
+      <p>
+        Nosotros no guardamos ningún dato tuyo, así que no hay nada que borrar en nuestros sistemas. Los datos que hayan
+        recibido KLIPY o Google se conservan y se borran según sus políticas de privacidad. Para pedirles que los borren,
+        contacta con ellos.
+      </p>
+    </section>
+
+    <section aria-labelledby="derechos">
+      <h2 id="derechos">11. Tus derechos</h2>
+      <p>
+        La normativa de protección de datos (como el Reglamento General de Protección de Datos de la Unión Europea) te da
+        derecho a acceder a tus datos, corregirlos, borrarlos, limitar su uso, oponerte a su tratamiento y llevártelos a otro
+        servicio. Como nosotros no recibimos ni guardamos datos tuyos, los datos de tu móvil los controlas tú directamente
+        (ver el apartado anterior). Para los datos que tratan KLIPY o Google, puedes ejercer esos derechos ante ellos.
+      </p>
+      <p>
+        En el Espacio Económico Europeo, los anuncios personalizados se basan en tu <strong>consentimiento</strong>, y puedes
+        retirarlo en cualquier momento con la opción «Privacidad de anuncios» del menú «Más opciones», sin que la app deje de funcionar.
+      </p>
+      <p>
+        Si tienes dudas, escríbenos (ver <a href="#contacto">Contacto</a>). También puedes presentar una reclamación ante
+        la <a href="https://www.aepd.es" rel="noopener noreferrer">Agencia Española de Protección de Datos</a> o ante la
+        autoridad de protección de datos de tu país.
+      </p>
+    </section>
+
+    <section aria-labelledby="menores">
+      <h2 id="menores">12. Menores de edad</h2>
+      <p>
+        StickerApp no está dirigida a menores de 13 años. Nosotros no recogemos datos de nadie, y no buscamos recoger
+        conscientemente datos de menores de 13 años a través de los servicios de terceros. Aunque la app pide a KLIPY su filtro
+        de contenido más estricto, ese contenido lo publican terceros en KLIPY y no lo revisamos
+        uno a uno. Los anuncios se limitan a la clasificación «PG», pero no están pensados para niños.
+      </p>
+      <p>
+        Si eres padre, madre o tutor y crees que un menor ha usado la app, puedes borrar todos sus datos siguiendo los pasos
+        del apartado <a href="#borrar">Cómo borrarlos</a>, o escribirnos.
+      </p>
+    </section>
+
+    <section aria-labelledby="terceros">
+      <h2 id="terceros">13. Servicios de terceros y marcas</h2>
+      <ul>
+        <li>
+          <strong>KLIPY</strong> proporciona los stickers («Powered by KLIPY»):
+          <a href="https://klipy.com/support/privacy-policy" hreflang="en" rel="noopener noreferrer">política de privacidad de KLIPY (en inglés)</a>.
+        </li>
+        <li>
+          <strong>Google AdMob</strong> muestra los anuncios:
+          <a href="https://policies.google.com/technologies/ads" rel="noopener noreferrer">cómo usa Google los datos en la publicidad</a>
+          y <a href="https://policies.google.com/privacy" rel="noopener noreferrer">política de privacidad de Google</a>.
+        </li>
+        <li>
+          <strong>Google Play</strong> distribuye la app. Al descargarla e instalarla se aplica la
+          <a href="https://policies.google.com/privacy?hl=es" rel="noopener noreferrer">política de privacidad de Google</a>.
+        </li>
+        <li>
+          <strong>WhatsApp u otras apps</strong> que elijas en el menú de compartir: se aplica la política de privacidad de cada una.
+        </li>
+      </ul>
+      <p>
+        StickerApp es una app independiente. No está afiliada a WhatsApp, Meta ni KLIPY, ni cuenta con su patrocinio o
+        respaldo. WhatsApp y KLIPY son marcas de sus respectivos propietarios.
+      </p>
+    </section>
+
+    <section aria-labelledby="cambios">
+      <h2 id="cambios">14. Cambios en esta política</h2>
+      <p>
+        Si cambiamos la app de forma que afecte a tus datos, actualizaremos esta página y la fecha de entrada en vigor que
+        aparece arriba. Si el cambio es importante, también lo indicaremos en las notas de la versión de Google Play.
+      </p>
+    </section>
+
+    <section aria-labelledby="contacto">
+      <h2 id="contacto">15. Contacto</h2>
+      <p>
+        Para cualquier pregunta sobre esta política o sobre la app, escríbenos a:
+        <a href="mailto:[EMAIL DE CONTACTO]">[EMAIL DE CONTACTO]</a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>StickerApp · Política de privacidad · En vigor desde el 8 de octubre de 2026</p>
+  </footer>
+
+  <script>
+    (function () {
+      var link = document.getElementById('volver-a-la-app');
+      var referrer = null;
+      try {
+        referrer = document.referrer ? new URL(document.referrer) : null;
+      } catch (error) {}
+      var cameFromApp =
+        referrer !== null && referrer.origin === location.origin && referrer.pathname.indexOf('/dashboard') === 0;
+
+      // localhost: el WebView de la app Android (y ng serve), por si el navegador no manda la página de origen
+      if (!cameFromApp && location.hostname !== 'localhost') {
+        return;
+      }
+
+      link.hidden = false;
+      link.addEventListener('click', function (event) {
+        // Volver atrás deja al usuario en la misma pantalla de la que vino (p. ej. su búsqueda)
+        if (cameFromApp && history.length > 1) {
+          event.preventDefault();
+          history.back();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

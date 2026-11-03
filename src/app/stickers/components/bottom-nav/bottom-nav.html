@@ -1,0 +1,37 @@
+<!-- La clase bottom-nav la usa styles.css para esconderla mientras el teclado está abierto -->
+<nav
+  aria-label="Navegación principal"
+  class="bottom-nav fixed inset-x-0 bottom-0 z-30 border-t border-white/10 bg-slate-950/90 pb-safe px-safe shadow-[0_-8px_24px_rgba(2,6,23,0.25)] backdrop-blur-lg md:hidden"
+>
+  <ul class="grid grid-cols-3 gap-1 px-2 py-1">
+    @for (option of menuOptions; track option.route) {
+      <li>
+        <a
+          [routerLink]="option.route"
+          routerLinkActive="text-white"
+          [routerLinkActiveOptions]="activeOptions"
+          ariaCurrentWhenActive="page"
+          #activeLink="routerLinkActive"
+          class="flex min-h-14 flex-col items-center justify-center gap-1 rounded-xl px-2 py-1.5 text-[11px] font-medium text-slate-400 transition hover:text-white focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:outline-none"
+        >
+          <span
+            class="relative flex h-7 w-14 items-center justify-center rounded-full transition"
+            [class.bg-indigo-400/15]="activeLink.isActive"
+            [class.text-indigo-300]="activeLink.isActive"
+          >
+            <app-menu-icon class="h-5 w-5" [icon]="option.icon" />
+
+            @if (option.showFavoritesCount && favoritesCount() > 0) {
+              <span
+                class="absolute -top-1 left-1/2 ml-1.5 min-w-5 rounded-full bg-indigo-500 px-1.5 text-center text-[10px] leading-4 font-semibold text-white tabular-nums ring-2 ring-slate-950"
+              >
+                {{ favoritesCount() }}<span class="sr-only"> favoritos</span>
+              </span>
+            }
+          </span>
+          <span>{{ option.label }}</span>
+        </a>
+      </li>
+    }
+  </ul>
+</nav>

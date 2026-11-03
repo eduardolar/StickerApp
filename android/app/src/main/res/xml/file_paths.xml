@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Carpetas que el menú de compartir puede pasar a otras apps (FileProvider). Solo la de los stickers
+     que se comparten (Directory.Cache + "share/", ver native-device.service.ts): nada más del móvil -->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <cache-path name="share" path="share/" />
+</paths>

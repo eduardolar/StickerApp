@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- slate-950: el fondo de la app (igual que backgroundColor en capacitor.config.ts) -->
+    <color name="splash_background">#020617</color>
+</resources>
